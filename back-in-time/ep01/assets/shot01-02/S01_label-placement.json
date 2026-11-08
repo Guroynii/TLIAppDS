@@ -1,0 +1,38 @@
+{
+ "S01_label-1_wansao.png": {
+  "png_size": [
+   496,
+   254
+  ],
+  "top_left": [
+   196,
+   94
+  ],
+  "center": [
+   444,
+   221
+  ],
+  "capcut_position_xy": [
+   -516,
+   319
+  ]
+ },
+ "S01_label-2_bai2mong.png": {
+  "png_size": [
+   488,
+   216
+  ],
+  "top_left": [
+   230,
+   260
+  ],
+  "center": [
+   474,
+   368
+  ],
+  "capcut_position_xy": [
+   -486,
+   172
+  ]
+ }
+}
