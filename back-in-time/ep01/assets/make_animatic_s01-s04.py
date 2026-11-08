@@ -3,15 +3,15 @@ from PIL import Image, ImageEnhance
 E='/home/user/TLIAppDS/back-in-time/ep01/'; A=E+'assets/'
 W,H,FPS=1920,1080,25
 OFF=1.0                      # VO starts at program 1.0 s
-END_VO=20.0
+END_VO=21.9
 N=int((END_VO+OFF)*FPS)
 def L(p): return Image.open(p).convert('RGBA')
 frame=L(A+'series/PAST_film-frame-overlay_1920x1080.png')
 def grade(im): return ImageEnhance.Color(im).enhance(0.92)
 S02=grade(L(E+'renders/S02_plate_1920x1080.png')); S03=grade(L(E+'renders/S03_plate_crop_1920x1080.png')); S04=grade(L(E+'renders/S04_plate_1920x1080.png'))
 pl=json.load(open(A+'shot01-02/S01_label-placement.json'))
-lab=[(L(A+'shot01-02/S01_label-1_wansao.png'),pl['S01_label-1_wansao.png']['center'],1.94),
-     (L(A+'shot01-02/S01_label-2_bai2mong.png'),pl['S01_label-2_bai2mong.png']['center'],2.44)]
+lab=[(L(A+'shot01-02/S01_label-1_wansao.png'),pl['S01_label-1_wansao.png']['center'],1.98),
+     (L(A+'shot01-02/S01_label-2_bai2mong.png'),pl['S01_label-2_bai2mong.png']['center'],3.02)]
 n=int(1200*0.66)
 hh=L(A+'shot01-02/S02_clock-hand-hour_pivot-center.png').resize((n,n),Image.LANCZOS)
 mh=L(A+'shot01-02/S02_clock-hand-minute_pivot-center.png').resize((n,n),Image.LANCZOS)
@@ -38,7 +38,7 @@ out=subprocess.Popen(['ffmpeg','-v','error','-y','-f','rawvideo','-pix_fmt','rgb
 def shot01(t,ft):   # t = VO time
     global lastv
     v=nextvid(); lastv=v if v is not None else lastv
-    im=zoom(lastv,1+0.03*clamp(ft/6.4))
+    im=zoom(lastv,1+0.03*clamp(ft/7.1))
     for png,(cx,cy),t0 in lab:
         k=eo(ramp(t,t0,6/FPS))
         if k<=0: continue
@@ -48,44 +48,44 @@ def shot01(t,ft):   # t = VO time
         im.alpha_composite(p,(int(cx-p.width/2),int(cy-p.height/2)))
     return im
 def shot02(t):
-    im=zoom(S02,1+0.04*ramp(t,5.40,4.55)).copy()
-    k1=eo(ramp(t,5.55,0.55)); k2=eo(ramp(t,8.20,0.62))
+    im=zoom(S02,1+0.04*ramp(t,6.10,5.50)).copy()
+    k1=eo(ramp(t,6.25,0.67)); k2=eo(ramp(t,9.45,0.65))
     ha=60+7.5*k1+7.5*k2; ma=90*k1+90*k2
     for hand,ang in ((hh,ha),(mh,ma)):
         im.alpha_composite(hand.rotate(-ang,resample=Image.BICUBIC),(960-n//2,494-n//2))
     return im
 def shot03(t):
-    im=zoom(S03,1+0.03*ramp(t,9.95,6.25)).copy()
-    out_a=1-ramp(t,15.80,0.40)
+    im=zoom(S03,1+0.03*ramp(t,11.60,5.70)).copy()
+    out_a=1-ramp(t,16.85,0.40)
     def put(key,t0,extra=1.0,rise=True):
         k=eo(ramp(t,t0,8/FPS))
         if k<=0: return
         dy=int(12*(1-k)) if rise else 0
         lay=with_alpha(S3L[key],k*extra*out_a)
         im.alpha_composite(lay,(0,dy)) if dy==0 else im.alpha_composite(lay.crop((0,0,W,H-dy)),(0,dy))
-    sc=ramp(t,9.95,12/FPS)*out_a
+    sc=ramp(t,11.60,12/FPS)*out_a
     if sc>0: im.alpha_composite(with_alpha(S3L['L0_scrim'],sc))
-    put('L1_panel',10.00); put('L2_icon-phone',10.30); put('L4_text-no-mobile',11.20)
-    w=ramp(t,11.46,6/FPS)
+    put('L1_panel',11.80); put('L2_icon-phone',12.10); put('L4_text-no-mobile',12.66)
+    w=ramp(t,13.02,6/FPS)
     if w>0:
         x1=int(1150-50+100*w); st=S3L['L3_strike'].crop((0,0,x1,H)); im.alpha_composite(with_alpha(st,out_a),(0,0))
-    dim=1-0.45*ramp(t,14.80,6/FPS); put('L5_bubble',13.70,dim); put('L6_send-failed',14.80)
+    dim=1-0.45*ramp(t,16.00,6/FPS); put('L5_bubble',15.00,dim); put('L6_send-failed',16.00)
     return im
-def shot04(t): return zoom(S04,1.06-0.06*ramp(t,16.20,3.8))
+def shot04(t): return zoom(S04,1.06-0.06*ramp(t,17.30,4.3))
 WHITE=Image.new('RGBA',(W,H),(255,243,224,255))
 for i in range(N):
     pt=i/FPS; t=pt-OFF
-    if t<5.40: im=shot01(t,pt)
+    if t<6.10: im=shot01(t,pt)
     else:
         if lastv is not None or True:
             pass
-        if t<9.95: im=shot02(t)
-        elif t<15.96: im=shot03(t)
-        elif t<16.44: im=Image.blend(shot03(t),shot04(t),(t-15.96)/0.48)
+        if t<11.60: im=shot02(t)
+        elif t<17.06: im=shot03(t)
+        elif t<17.54: im=Image.blend(shot03(t),shot04(t),(t-17.06)/0.48)
         else: im=shot04(t)
     im=Image.alpha_composite(im.convert('RGBA'),frame)
     if pt<0.5: im=Image.blend(Image.new('RGBA',(W,H),(0,0,0,255)),im,pt/0.5)
-    if t>=19.22: im=Image.blend(im,WHITE,clamp((t-19.22)/0.48))
+    if t>=21.12: im=Image.blend(im,WHITE,clamp((t-21.12)/0.48))
     a=np.asarray(im.convert('RGB'),dtype=np.int16)+grains[i%6]
     out.stdin.write(np.clip(a,0,255).astype(np.uint8).tobytes())
     if t>=5.40 and vid.poll() is None: pass
