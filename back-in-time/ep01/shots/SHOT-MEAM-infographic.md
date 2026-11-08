@@ -3,7 +3,7 @@
 **เสียง:** `audio/VO_meam_v4_105s.mp3` (ElevenLabs v4 · 105.7 s) — Infographic ใช้ช่วง **0.00–47.30**
 **Source of Truth:** `assets/meam-info/SRC_meam_info.webp`
 **Clean plate:** `assets/meam-info/CLEAN_meam_info_higgsfield.png` (1 credit) — ใช้เฉพาะใต้กราฟิก ส่วนตัวคนยังเป็นพิกเซลต้นฉบับ
-**Output:** `renders/S_MEAM_infographic_1920x1080.mp4` (47.3 s) · ตัวอย่างพร้อมเสียง `renders/PREVIEW_S_MEAM_infographic_with-VO.mp4`
+**Output:** `renders/S_MEAM_infographic_1920x1080.mp4` (47.3 s)
 
 ## จังหวะ (เวลาในเสียง = เวลาในคลิป)
 | VO | คำพูด | สิ่งที่ปรากฏ |
