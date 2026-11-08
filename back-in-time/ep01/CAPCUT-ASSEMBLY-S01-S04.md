@@ -95,3 +95,31 @@ Saturation −8 · Highlights −10 · Shadows ส้มเล็กน้อย
 
 ## 7. Export (ทดสอบ)
 1080p · 25 fps · H.264 · Bitrate Recommended — เทียบกับ Animatic
+
+---
+
+# ส่วนต่อ: Shot 05–08 (VO ช่วง 2 v4)
+
+## Audio
+- `VO_EP01_part2_v4.mp3` วางที่ **31.40** (เว้นหลังเสียงช่วง 1 ประมาณ 0.36 s) — **ไม่ต้องใช้ไฟล์เสียงเดิม part1-2 แล้ว** สำหรับช่วงนี้
+- Program = VO2 + 31.40
+
+## Main Track
+| Shot | ไฟล์ | เริ่ม | จบ |
+|---|---|---|---|
+| 05 | (รอคลิป lip-sync — ใช้ `S05_lipsync_…mp3` สร้างบน OpenArt) | 22.60 | 31.40 |
+| 06–08 | `S06-08_host_1920x1080.mp4` (คลิปเดียวต่อเนื่อง · ปิดเสียงคลิป) | **31.40** | **44.52** |
+
+- คลิป 06–08: Scale 100 → 103% ตลอดคลิป · Present Grade · ไม่มีกรอบฟิล์ม · Grain 8%
+
+## Keyframes (Program TC)
+| เวลา | การกระทำ |
+|---|---|
+| 34.70 | Split คลิป → ใส่ Blur + `S07_T0_dim` Fade in 6 frames |
+| 34.82 → 35.14 | `S07_T1_title` Opacity 0 → 100% |
+| 36.95 → 37.25 | Title + Dim + Blur ออก (Split คลิปที่ 37.25) |
+| 38.50 | `S08_Q0_panel` เข้า (Opacity 0→100, Y −12→0, 8 frames) |
+| 38.62 | `S08_Q1_line1` เข้า |
+| 41.12 | `S08_Q2_line2-3` เข้า |
+| 44.25 → 44.52 | Q0–Q2 Fade out |
+| 34.70 | SFX tape rewind สั้น −18 dB |
